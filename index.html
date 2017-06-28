@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html ng-app="app">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+        <title>
+            Book Tickets
+        </title>
+
+        <style type="text/css">
+            .markGreen {
+                background-color: #88d68b;
+                cursor: pointer;
+            }
+
+            .markBeige {
+                background-color: #f3f371;
+                cursor: pointer;
+            }
+
+            .markRed {
+                background-color: #ff2414;
+                cursor: not-allowed;
+            }
+            .seat {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" ng-controller="appCtrl as ctrl">
+            <h1>Book Tickets In {{::ctrl.hall.HNm}}</h1>
+            <table class="table">
+                <tr ng-repeat = "one in ctrl.hall.Seats |orderBy:'ROrd'">
+                    <td ng-repeat="seat in one.Row |orderBy:'SOrd'" class="seat" ng-class="{'markGreen': seat.Bkd == 1, 'markBeige': seat.Bkd == 2, 'markRed': seat.Bkd == 3}" ng-click="ctrl.selectSeat(ctrl.hall.Seats.indexOf(one), $index);">
+                        S {{seat.SOrd}}
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <div class="col-md-6">
+                    No of seats selected: {{ctrl.selectCount}}
+                </div>
+                <div class="col-md-6">
+                    <span class="pull-right">    
+                        <button class="btn btn-primary btn-small" ng-click="ctrl.bookTickets()" ng-disabled="ctrl.selectCount == 0">Book Tickets</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+        <script src="app.js"></script>
+    </body>
+</html>
